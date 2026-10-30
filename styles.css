@@ -37,3 +37,38 @@
  .admin-main input:not([type=checkbox]),.admin-main textarea,.admin-main select{background:#292f23;color:#ece7d8;border-color:#626852}
  .admin-row{border-color:#555b48}
 }
+
+/* Requested palette and Bengali handwriting fonts */
+@font-face{font-family:QuietBanglaUnicode;src:url('fancy-bangla-unicode.otf') format('opentype');font-style:normal;font-weight:100 900;font-display:swap;unicode-range:U+0980-09FF}
+@font-face{font-family:QuietBangla;src:url('fancy-bangla.ttf') format('truetype');font-style:normal;font-weight:100 900;font-display:swap;unicode-range:U+0980-09FF}
+:root{--ink:#320000;--paper:#f5f5dc;--panel:#e9e5c7;--line:#a98282;--olive:#800000;--accent:#800000;--muted:#6b4d4d}
+body,.intro,.post-excerpt,.prose,.about p,.admin-main label,.form-message{font-family:'DM Mono','QuietBanglaUnicode','QuietBangla',monospace}
+h1,h2,h3,.section-heading h2,.about h2,.post-title,.admin-main h1,.admin-main h2,.brand,.button,button,input,textarea,select,.eyebrow,.post-meta,footer{font-family:'Space Mono','QuietBanglaUnicode','QuietBangla',monospace}
+@media(max-width:650px){
+ body{background:#800000;color:#f5f5dc}
+ .site-header{background:#f5f5dc;color:#800000;border-color:#f5f5dc}
+ .brand-mark{background:#800000;color:#f5f5dc}
+ .brand small{color:#6b4d4d}
+ .hero{background:#800000;color:#f5f5dc;border-color:#f5f5dc}
+ .hero-topline,.hero-bottomline{color:#f5f5dc}
+ .hero-copy .eyebrow,.hero-side .eyebrow{color:#f5f5dc}
+ .hero-copy h1,.hero-copy h1 em{color:#f5f5dc}
+ .hero-copy .intro{color:#f5f5dc}
+ .hero-copy .button{background:#f5f5dc;color:#800000}
+ .hero-grid,.hero-copy,.hero-side{border-color:#f5f5dc}
+ .hero-side a{color:#f5f5dc;border-color:#c8a5a5}
+ .section{background:#f5f5dc;color:#800000;border-color:#800000}
+ .section .eyebrow,.about .eyebrow{color:#800000}
+ .section-heading{border-color:#a98282}
+ .post-card{background:#800000;color:#f5f5dc;border-color:#f5f5dc}
+ .post-card .post-meta{color:#f5f5dc}
+ .post-card .post-excerpt{color:#f5f5dc}
+ .about-stamp{color:#800000;border-color:#800000}
+ .about p:last-child{color:#4a1616}
+ footer{color:#f5f5dc}
+ dialog{background:#f5f5dc;color:#800000;border-color:#800000}
+ .admin-body{background:#800000}
+ .admin-body .card{background:#f5f5dc;color:#800000;border-color:#f5f5dc}
+ .admin-main input:not([type=checkbox]),.admin-main textarea,.admin-main select{background:#fffdea;color:#320000;border-color:#a98282}
+ .admin-row{border-color:#a98282}
+}
