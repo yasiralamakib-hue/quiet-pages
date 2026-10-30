@@ -1,31 +1,18 @@
--- Run once in Supabase SQL Editor. This config allows read-only public access
--- to published posts, while writes require an authenticated author account.
 create extension if not exists pgcrypto;
-create table if not exists public.posts (
-  id uuid primary key default gen_random_uuid(),
-  title text not null,
-  excerpt text not null default '',
-  category text not null default 'Journal',
-  body text not null,
-  photo_url text,
-  published boolean not null default false,
-  created_at timestamptz not null default now(),
-  updated_at timestamptz not null default now()
-);
+create table if not exists public.posts (id uuid primary key default gen_random_uuid(),title text not null,excerpt text not null default '',category text not null default 'Journal',body text not null,photo_url text,published boolean not null default false,created_at timestamptz not null default now(),updated_at timestamptz not null default now());
 alter table public.posts enable row level security;
 drop policy if exists "Anyone can read published posts" on public.posts;
-create policy "Anyone can read published posts" on public.posts for select using (published = true or auth.uid() is not null);
+create policy "Anyone can read published posts" on public.posts for select using (published=true or auth.uid() is not null);
 drop policy if exists "Authors can add posts" on public.posts;
 create policy "Authors can add posts" on public.posts for insert to authenticated with check (auth.uid() is not null);
 drop policy if exists "Authors can update posts" on public.posts;
 create policy "Authors can update posts" on public.posts for update to authenticated using (auth.uid() is not null) with check (auth.uid() is not null);
 drop policy if exists "Authors can delete posts" on public.posts;
 create policy "Authors can delete posts" on public.posts for delete to authenticated using (auth.uid() is not null);
--- Publicly readable image bucket; uploads/deletes only for authenticated authors.
-insert into storage.buckets (id, name, public) values ('journal-photos','journal-photos',true) on conflict (id) do update set public=true;
+insert into storage.buckets(id,name,public) values('journal-photos','journal-photos',true) on conflict(id) do update set public=true;
 drop policy if exists "Anyone can view journal photos" on storage.objects;
-create policy "Anyone can view journal photos" on storage.objects for select using (bucket_id='journal-photos');
+create policy "Anyone can view journal photos" on storage.objects for select using(bucket_id='journal-photos');
 drop policy if exists "Authors can upload journal photos" on storage.objects;
-create policy "Authors can upload journal photos" on storage.objects for insert to authenticated with check (bucket_id='journal-photos' and auth.uid() is not null);
+create policy "Authors can upload journal photos" on storage.objects for insert to authenticated with check(bucket_id='journal-photos' and auth.uid() is not null);
 drop policy if exists "Authors can delete journal photos" on storage.objects;
-create policy "Authors can delete journal photos" on storage.objects for delete to authenticated using (bucket_id='journal-photos' and auth.uid() is not null);
+create policy "Authors can delete journal photos" on storage.objects for delete to authenticated using(bucket_id='journal-photos' and auth.uid() is not null);
