@@ -39,33 +39,28 @@ async function api(path, options) {
 function showMessage(form, text) { const node = form && form.querySelector('.form-message'); if (node) node.textContent = text; }
 
 async function loadPublic() {
-  const photosNode = document.querySelector('#photo-entries');
-  const writingNode = document.querySelector('#writing-entries');
-  if (!photosNode || !writingNode) return;
+  const node = document.querySelector('#journal-feed');
+  if (!node) return;
   try {
-    let posts;
-    if (ready) posts = await api('/rest/v1/posts?select=*&published=eq.true&order=created_at.desc');
-    else posts = [
-      {id:'demo-photo',title:'A quiet afternoon',excerpt:'A small scene from the everyday archive.',category:'Photography',body:'A photograph, kept here for later.',photo_url:'',created_at:'2026-10-21'},
-      {id:'demo-writing',title:'The light at the end of the day',excerpt:'Some evenings ask nothing of us but that we notice them.',category:'Journal',body:'The day softened around the edges.\n\nI watched the last light find its way across the room and thought how often the smallest things are the ones that stay.',created_at:'2026-10-13'}
-    ];
-    const photos = posts.filter(p => p.photo_url || String(p.category).toLowerCase() === 'photography');
-    const writing = posts.filter(p => !p.photo_url && String(p.category).toLowerCase() !== 'photography');
-    photosNode.innerHTML = photos.length ? photos.map((p,i) => '<button class="photo-entry" data-post="' + esc(p.id) + '"><span class="photo-thumb" ' + (p.photo_url ? 'style="background-image:url(&quot;' + esc(p.photo_url) + '&quot;)"' : '') + '><span>' + String(i+1).padStart(2,'0') + '</span></span><span class="entry-date">' + niceDate(p.created_at) + '</span><strong>' + esc(p.title) + '</strong><span class="entry-excerpt">' + esc(p.excerpt || 'Open photograph →') + '</span></button>').join('') : '<p class="empty-note">Photographs will appear here when you publish them from your author desk.</p>';
-    writingNode.innerHTML = writing.length ? writing.map(p => '<button class="writing-entry" data-post="' + esc(p.id) + '"><span class="entry-date">' + esc(p.category || 'Writing') + ' · ' + niceDate(p.created_at) + '</span><strong>' + esc(p.title) + '</strong><span class="entry-excerpt">' + esc(p.excerpt || 'Read this entry →') + '</span><span class="read-mark">READ ENTRY ↗</span></button>').join('') : '<p class="empty-note">Writing will appear here when you publish it from your author desk.</p>';
-    const openEntry = event => {
+    const posts = ready ? await api('/rest/v1/posts?select=*&published=eq.true&order=created_at.desc') : [];
+    if (!posts.length) { node.innerHTML = ''; return; }
+    node.innerHTML = posts.map((p,i) => {
+      const hasPhoto = !!p.photo_url;
+      const kind = hasPhoto ? 'with-photo' : 'writing-only';
+      const image = hasPhoto ? '<span class="entry-image"><img src="' + esc(p.photo_url) + '" alt="' + esc(p.title) + '" loading="lazy"></span>' : '';
+      return '<button class="journal-entry ' + kind + '" data-post="' + esc(p.id) + '" data-index="' + (i+1) + '">' + image + '<span class="entry-copy"><span class="entry-date">' + esc(p.category || (hasPhoto ? 'Photography' : 'Writing')) + ' · ' + niceDate(p.created_at) + '</span><strong>' + esc(p.title) + '</strong>' + (p.excerpt ? '<span class="entry-excerpt">' + esc(p.excerpt) + '</span>' : '') + '<span class="entry-number">' + String(i+1).padStart(2,'0') + '</span></span></button>';
+    }).join('');
+    node.addEventListener('click', event => {
       const button = event.target.closest('[data-post]');
       if (!button) return;
       const post = posts.find(item => String(item.id) === button.dataset.post);
       if (!post) return;
-      document.querySelector('#post-detail').innerHTML = (post.photo_url ? '<img class="detail-photo" src="' + esc(post.photo_url) + '" alt="' + esc(post.title) + '">' : '') + '<p class="entry-date">' + esc(post.category || 'Writing') + ' · ' + niceDate(post.created_at) + '</p><h1>' + esc(post.title) + '</h1><p class="detail-excerpt">' + esc(post.excerpt || '') + '</p><div class="prose">' + esc(post.body) + '</div>';
+      document.querySelector('#post-detail').innerHTML = (post.photo_url ? '<img class="detail-photo" src="' + esc(post.photo_url) + '" alt="' + esc(post.title) + '">' : '') + '<p class="entry-date">' + esc(post.category || (post.photo_url ? 'Photography' : 'Writing')) + ' · ' + niceDate(post.created_at) + '</p><h1>' + esc(post.title) + '</h1><p class="detail-excerpt">' + esc(post.excerpt || '') + '</p><div class="prose">' + esc(post.body) + '</div>';
       document.querySelector('#post-dialog').showModal();
-    };
-    photosNode.addEventListener('click', openEntry);
-    writingNode.addEventListener('click', openEntry);
-  } catch {
-    photosNode.innerHTML = '<p class="empty-note">Could not load photographs. Check the Supabase setup.</p>';
-    writingNode.innerHTML = '<p class="empty-note">Could not load writing. Check the Supabase setup.</p>';
+    });
+  } catch (error) {
+    node.innerHTML = '';
+    console.error('Astray entries could not be loaded.', error);
   }
 }
 void loadPublic();
