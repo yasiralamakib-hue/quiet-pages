@@ -8,6 +8,8 @@ The website has a public journal and a private author desk. To connect its backe
 4. Upload all files in this folder to the root of your GitHub repository, replacing the current files. Ensure `index.html`, `admin.html`, `app.js`, `config.js`, and `styles.css` sit at the top level.
 5. GitHub Pages will publish the update automatically. The public site is the repository Pages address; your author desk is the same address followed by `/admin.html`.
 
+The public page includes a DOWNLOAD control for installing Astray as a browser app on supported phones and computers. Keep `manifest.webmanifest`, `astray-icon-192.png`, and `astray-icon-512.png` beside the HTML files. The installed app still needs an internet connection to load the journal and Supabase content. On iPhone/iPad, use Safari Share → Add to Home Screen if no install prompt appears.
+
 Only published posts are visible to visitors. Unpublished drafts are private to authenticated users. The photo bucket is public so images on published entries display correctly; upload only photos you intend to make public. The included publishable key is intended for browser use; database access is restricted by the SQL policies. Keep your password private and enable MFA if available.
 
 ## Adding photographs and writing

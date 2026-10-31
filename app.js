@@ -8,6 +8,57 @@ const getSession = () => { try { return JSON.parse(localStorage.getItem(sessionK
 const setSession = value => localStorage.setItem(sessionKey, JSON.stringify(value));
 const clearSession = () => localStorage.removeItem(sessionKey);
 
+// Let the public DOWNLOAD control open the browser's native app-install prompt.
+let installPrompt = null;
+const installButton = document.querySelector('#install-app');
+const installMessage = document.querySelector('#install-message');
+if (installButton && window.matchMedia('(display-mode: standalone)').matches) {
+  installButton.textContent = '[ INSTALLED ]';
+  installButton.disabled = true;
+}
+window.addEventListener('beforeinstallprompt', event => {
+  event.preventDefault();
+  installPrompt = event;
+});
+window.addEventListener('appinstalled', () => {
+  installPrompt = null;
+  if (installButton) {
+    installButton.textContent = 'INSTALLED';
+    installButton.disabled = true;
+  }
+});
+if (installButton) installButton.addEventListener('click', async () => {
+  if (installPrompt) {
+    try {
+      await installPrompt.prompt();
+      const choice = await installPrompt.userChoice;
+      installPrompt = null;
+      if (choice && choice.outcome === 'accepted') installButton.textContent = '[ INSTALLING ]';
+    } catch {
+      installPrompt = null;
+      if (installMessage) {
+        installMessage.textContent = 'Open your browser menu and choose Install Astray or Add to Home Screen.';
+        installMessage.hidden = false;
+      }
+    }
+    return;
+  }
+  if (installMessage) {
+    const agent = navigator.userAgent;
+    if (/iPhone|iPad|iPod/i.test(agent)) {
+      installMessage.textContent = 'To add Astray on iPhone or iPad: tap Share, then Add to Home Screen.';
+    } else if (/Android/i.test(agent)) {
+      installMessage.textContent = 'To install Astray: open the browser menu ⋮ and choose Install app or Add to Home screen.';
+    } else {
+      installMessage.textContent = 'To install Astray: open your browser menu and choose Install Astray or Install app.';
+    }
+    installMessage.hidden = false;
+  }
+});
+if (installMessage) document.addEventListener('click', event => {
+  if (!event.target.closest('#install-app') && !event.target.closest('#install-message')) installMessage.hidden = true;
+});
+
 async function authCall(path, body) {
   const response = await fetch(base + '/auth/v1/' + path, {method:'POST',headers:{apikey:SUPABASE_ANON_KEY,'Content-Type':'application/json'},body:JSON.stringify(body)});
   const data = await response.json().catch(() => ({}));

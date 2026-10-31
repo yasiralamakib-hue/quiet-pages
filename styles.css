@@ -22,6 +22,12 @@ button,input,textarea,select{font:inherit}
 .topline{position:absolute;z-index:3;top:35px;right:clamp(24px,3vw,48px)}
 .topline a{color:#544a3d;text-decoration:none;font:9px 'DM Mono','QuietBanglaUnicode','QuietBangla',monospace;letter-spacing:1.5px}
 .topline a:hover{color:var(--press-red)}
+.top-actions{display:flex;align-items:center;gap:clamp(14px,2vw,26px)}
+.top-action{padding:0;border:0;background:transparent;color:#544a3d;font:9px 'DM Mono','QuietBanglaUnicode','QuietBangla',monospace;letter-spacing:1.5px;cursor:pointer}
+.top-action:hover{color:var(--press-red)}
+.top-action:disabled{opacity:.6;cursor:default}
+.install-message{position:absolute;top:calc(100% + 10px);right:0;width:min(270px,78vw);margin:0;padding:12px 14px;border:1px solid var(--rule);background:var(--paper-light);color:var(--ink);font:12px/1.5 'DM Mono','QuietBanglaUnicode','QuietBangla',monospace;box-shadow:0 4px 14px #29251f22}
+.top-action:focus-visible,.topline a:focus-visible{outline:2px solid var(--press-red);outline-offset:5px}
 .journal-feed{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));grid-auto-rows:minmax(44px,auto);grid-auto-flow:row;gap:24px 26px;min-height:100vh;padding:106px clamp(26px,4vw,64px) 60px}
 .journal-entry{position:relative;display:block;min-width:0;overflow:hidden;grid-column:span 5;grid-row:span 5;padding:0;border:0;background:var(--paper-light);color:var(--ink);text-align:left;cursor:pointer;transition:transform .22s ease,box-shadow .22s ease}
 .journal-entry:hover{transform:translateY(-3px);box-shadow:0 10px 24px #473b2b24}
@@ -124,7 +130,8 @@ button,input,textarea,select{font:inherit}
  .rail-foot{left:6%;right:auto;bottom:2%;font-size:5px;letter-spacing:.35px}
  .journal-content{min-height:100vh;min-height:100svh}
  .topline{top:16px;right:16px}
- .topline a{font-size:9px;letter-spacing:.9px}
+ .top-actions{gap:12px}
+ .topline a,.top-action{font-size:8px;letter-spacing:.65px}
  .journal-feed{grid-template-columns:minmax(0,1fr);grid-auto-rows:auto;gap:18px;padding:62px 16px 30px}
  .journal-entry,.journal-entry:nth-child(n){grid-column:1!important;grid-row:auto!important;min-height:0!important;height:auto}
  .journal-entry.with-photo{height:clamp(250px,72vw,460px);min-height:0!important}

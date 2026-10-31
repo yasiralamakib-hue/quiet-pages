@@ -4,8 +4,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="description" content="Astray — photographs and writing from a life in motion.">
+  <meta name="theme-color" content="#c97b68">
   <title>Astray — Personal Archive</title>
-  <link rel="stylesheet" href="styles.css?v=15">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="astray-icon-192.png">
+  <link rel="stylesheet" href="styles.css?v=16">
 </head>
 <body class="journal-page">
   <aside class="identity-rail" aria-label="Astray personal archive">
@@ -19,13 +22,13 @@
     <p class="rail-foot">PERSONAL ARCHIVE<br>VOL. I</p>
   </aside>
   <main class="journal-content">
-    <header class="topline"><a href="admin.html">AUTHOR DESK ·</a></header>
+    <header class="topline"><nav class="top-actions"><button id="install-app" class="top-action" type="button">[ DOWNLOAD ]</button><a href="admin.html">AUTHOR DESK ·</a></nav><p id="install-message" class="install-message" role="status" hidden></p></header>
     <section id="journal-feed" class="journal-feed" aria-label="Published photographs and writing"></section>
   </main>
   <dialog id="post-dialog" class="entry-dialog">
     <button class="close" aria-label="Close entry">×</button>
     <article id="post-detail"></article>
   </dialog>
-  <script type="module" src="app.js?v=9"></script>
+  <script type="module" src="app.js?v=10"></script>
 </body>
 </html>
