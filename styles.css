@@ -12,7 +12,6 @@ button,input,textarea,select{font:inherit}
 .identity-rail{position:sticky;top:0;align-self:start;height:100vh;min-height:560px;background:var(--terracotta);overflow:hidden}
 .rail-brand{position:absolute;left:13%;top:3.5%;display:flex;flex-direction:column;align-items:flex-start;gap:0;color:var(--ink);text-decoration:none}
 .brand-portrait{display:block;width:clamp(80px,6.2vw,128px);height:clamp(100px,15vh,150px);object-fit:contain;object-position:left center}
-.rail-brand>span{font:700 clamp(20px,2vw,29px)/1 'UnifrakturCook','IM Fell English','QuietBanglaUnicode','QuietBangla',serif;letter-spacing:.3px}
 .rail-object{position:absolute;left:50%;display:block;object-fit:contain;transform:translateX(-50%)}
 .rail-hairband{top:26%;width:clamp(105px,10vw,194px);height:clamp(110px,20vh,205px)}
 .rail-bow{top:49%;width:clamp(100px,8.5vw,166px);height:clamp(88px,15vh,150px)}
@@ -122,7 +121,6 @@ button,input,textarea,select{font:inherit}
  .identity-rail{position:sticky;top:0;align-self:start;height:100vh;height:100svh;min-height:100vh;min-height:100svh}
  .rail-brand{left:5%;top:2%;width:90%;align-items:center}
  .brand-portrait{width:78%;height:auto;aspect-ratio:1;object-position:center}
- .rail-brand>span{font-size:clamp(10px,3vw,13px);letter-spacing:.9px}
  .rail-object{left:10%;height:auto;aspect-ratio:1;transform:none}
  .rail-hairband{top:24%;width:80%}
  .rail-bow{top:34%;width:80%}
