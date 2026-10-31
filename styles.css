@@ -27,6 +27,8 @@ button,input,textarea,select{font:inherit}
 .masthead h1{font:700 clamp(50px,6vw,76px)/1 Georgia,'IM Fell English','QuietBanglaUnicode','QuietBangla',serif;letter-spacing:3px;margin:9px 0 2px}
 .masthead-subtitle{font:italic 18px/1.4 'IM Fell English','QuietBanglaUnicode','QuietBangla',Georgia,serif;color:var(--soft-ink);margin:8px 0 0}
 .journal-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.06fr);gap:clamp(38px,5vw,74px);padding:14px 0 30px}
+.journal-grid{position:relative}
+.journal-grid::before{content:"";position:absolute;z-index:0;left:50%;top:18px;bottom:44px;width:1px;background:linear-gradient(to bottom,transparent,#9e8d72a8 9%,#9e8d72a8 91%,transparent);pointer-events:none}
 .journal-section{min-width:0;scroll-margin-top:22px}
 .section-heading{margin:0 0 22px}
 .section-kicker{margin:0 0 7px;color:var(--press-red);font-size:8px;letter-spacing:1.6px}
@@ -121,6 +123,9 @@ button,input,textarea,select{font:inherit}
  .masthead h1{font-size:53px}
  .masthead-subtitle{font-size:16px}
  .journal-grid{display:flex;flex-direction:column;gap:46px;padding-top:4px}
+ .journal-grid::before{display:none}
+ .writing-section{position:relative;padding-top:20px}
+ .writing-section::before{content:"";position:absolute;top:0;left:0;width:56px;height:1px;background:#9e8d72a8}
  .section-heading{margin-bottom:16px}
  .section-heading h2{font-size:27px}
  .section-note{font-size:13px}
