@@ -72,3 +72,85 @@ h1,h2,h3,.section-heading h2,.about h2,.post-title,.admin-main h1,.admin-main h2
  .admin-main input:not([type=checkbox]),.admin-main textarea,.admin-main select{background:#fffdea;color:#320000;border-color:#a98282}
  .admin-row{border-color:#a98282}
 }
+
+/* Public journal: a single vintage newspaper spread. The author desk keeps its existing layout. */
+.journal-page{
+  --ink:#2c160f;--paper:#f5f5dc;--paper-dark:#e9e2c8;--rule:#9b8066;--red:#800000;--soft-ink:#624d3f;
+  min-height:100vh;margin:0;padding:22px clamp(12px,3vw,44px);
+  color:var(--ink);background:#d4c5a6;
+  background-image:radial-gradient(ellipse at 18% 12%,#fff7d877 0,transparent 40%),repeating-linear-gradient(0deg,#72563808 0 1px,transparent 1px 5px);
+  font-family:'DM Mono','QuietBanglaUnicode','QuietBangla',serif;
+}
+.newspaper-masthead,.newspaper-page,.newspaper-footer{width:min(1440px,100%);margin-inline:auto}
+.newspaper-masthead{
+  display:grid;grid-template-columns:58px 1fr auto;align-items:center;gap:12px;
+  padding:12px 18px 0;background:var(--paper);border:1px solid var(--ink);
+  box-shadow:4px 4px 0 #38291c;
+}
+.masthead-mark{display:grid;place-items:center;width:48px;height:48px;background:var(--red);color:var(--paper);font:bold 17px 'Space Mono',monospace}
+.masthead-title{text-align:center}
+.masthead-kicker,.masthead-subtitle,.masthead-rule,.center-edition,.center-colophon,.column-index,.entry-date,.author-link,.newspaper-footer{
+  font:9px/1.6 'DM Mono','QuietBanglaUnicode','QuietBangla',monospace;letter-spacing:.12em;text-transform:uppercase
+}
+.masthead-kicker{margin:0;color:var(--red)}
+.masthead-title h1{margin:1px 0 0;color:var(--ink);font:small-caps 700 clamp(27px,4vw,48px)/1.1 Georgia,'Times New Roman','QuietBanglaUnicode','QuietBangla',serif;letter-spacing:.01em}
+.masthead-subtitle{margin:3px 0 8px;color:var(--soft-ink);letter-spacing:.07em}
+.author-link{align-self:start;margin-top:8px;padding:7px 9px;border:1px solid var(--rule);color:var(--red);text-decoration:none;white-space:nowrap}
+.author-link:hover{background:var(--red);color:var(--paper)}
+.masthead-rule{grid-column:1/-1;display:flex;justify-content:space-between;border-top:3px double var(--ink);padding:5px 1px;color:var(--soft-ink);font-size:8px}
+.newspaper-page{display:grid;grid-template-columns:minmax(210px,.88fr) minmax(340px,1.55fr) minmax(210px,.88fr);margin-top:12px;background:var(--paper);border:1px solid var(--ink);box-shadow:4px 4px 0 #38291c;min-height:610px}
+.news-column{padding:22px clamp(14px,2vw,26px);background:linear-gradient(90deg,#71604a08,transparent 14px),var(--paper)}
+.photography-column{border-right:1px solid var(--rule)}
+.writing-column{border-left:1px solid var(--rule);background:linear-gradient(270deg,#71604a08,transparent 14px),var(--paper)}
+.column-index{margin:0 0 5px;color:var(--red);font-size:8px}
+.news-column h2{margin:0;padding-bottom:8px;border-bottom:3px double var(--ink);font:small-caps 700 clamp(22px,2.1vw,31px)/1.15 Georgia,'Times New Roman','QuietBanglaUnicode','QuietBangla',serif;letter-spacing:.025em}
+.column-intro{margin:7px 0 15px;color:var(--soft-ink);font:italic 13px/1.5 Georgia,'Times New Roman','QuietBanglaUnicode','QuietBangla',serif}
+.photo-entries,.writing-entries{display:flex;flex-direction:column}
+.photo-entry,.writing-entry{width:100%;padding:11px 0;text-align:left;color:var(--ink);background:transparent;border:0;border-top:1px solid #b6a18a;cursor:pointer;font:inherit}
+.photo-entry:first-child,.writing-entry:first-child{border-top:0}
+.photo-entry:hover,.writing-entry:hover{background:#8000000a}
+.photo-thumb{position:relative;display:block;width:100%;height:clamp(100px,13vw,190px);margin-bottom:7px;border:1px solid var(--rule);background-color:#b8ad91;background-image:linear-gradient(150deg,#d3c8ac,#746c58);background-position:center;background-size:cover}
+.photo-thumb>span{position:absolute;left:5px;bottom:5px;background:var(--paper);padding:2px 6px;color:var(--red);font:9px 'DM Mono',monospace}
+.photo-entry strong,.writing-entry strong{display:block;font:700 16px/1.25 Georgia,'Times New Roman','QuietBanglaUnicode','QuietBangla',serif}
+.entry-date{display:block;margin:3px 0;color:var(--red);font-size:8px;letter-spacing:.08em}
+.entry-excerpt{display:block;margin-top:4px;color:var(--soft-ink);font:italic 12px/1.5 Georgia,'Times New Roman','QuietBanglaUnicode','QuietBangla',serif}
+.writing-entry{padding:14px 2px}
+.writing-entry strong{font-size:19px}
+.read-mark{display:block;margin-top:8px;color:var(--red);font:8px 'DM Mono',monospace;letter-spacing:.1em}
+.empty-note{padding:10px 0;color:var(--soft-ink);font:italic 13px/1.6 Georgia,'Times New Roman','QuietBanglaUnicode','QuietBangla',serif}
+.center-panel{display:flex;flex-direction:column;align-items:stretch;padding:20px clamp(12px,1.7vw,24px);min-width:0}
+.center-edition{text-align:center;color:var(--red);margin:0 0 10px;font-size:8px}
+.center-panel .hero-art{width:100%;height:clamp(390px,48vw,610px);min-height:0;border:1px solid var(--ink);border-right:1px solid var(--ink);background-color:#cbc6b4}
+.center-panel .art-caption{background:#f5f5dce8;color:var(--ink)}
+.center-caption{text-align:center;color:var(--soft-ink);font:italic 14px/1.5 Georgia,'Times New Roman','QuietBanglaUnicode','QuietBangla',serif;margin:12px 0}
+.center-colophon{border-top:3px double var(--ink);padding-top:7px;text-align:center;color:var(--red);font-size:8px}
+.newspaper-footer{display:flex;justify-content:space-between;gap:10px;padding:12px 4px;color:#42291d;font-size:8px}
+.newspaper-footer a{color:inherit;text-decoration:none}
+.journal-page dialog{border:2px solid var(--ink);background:var(--paper);color:var(--ink);box-shadow:6px 6px 0 #38291c}
+.journal-page dialog h1{font:small-caps 700 32px/1.15 Georgia,'Times New Roman','QuietBanglaUnicode','QuietBangla',serif;letter-spacing:0}
+.journal-page .prose{font:16px/1.85 Georgia,'Times New Roman','QuietBanglaUnicode','QuietBangla',serif}
+.journal-page .detail-excerpt{font:italic 15px/1.6 Georgia,'Times New Roman','QuietBanglaUnicode','QuietBangla',serif}
+@media(max-width:900px){
+ .journal-page{padding:9px;background-color:#d4c5a6}
+ .newspaper-masthead{grid-template-columns:38px 1fr auto;gap:7px;padding:9px 9px 0;box-shadow:2px 2px 0 #38291c}
+ .masthead-mark{width:34px;height:34px;font-size:13px}
+ .masthead-kicker{font-size:6px;letter-spacing:.06em}
+ .masthead-title h1{font-size:clamp(22px,6vw,32px)}
+ .masthead-subtitle{font-size:6px;letter-spacing:.025em}
+ .author-link{font-size:7px;padding:6px 5px;margin-top:3px;letter-spacing:.02em}
+ .masthead-rule{font-size:6px}
+ .newspaper-page{grid-template-columns:1fr;margin-top:8px;box-shadow:2px 2px 0 #38291c}
+ .center-panel{grid-row:1;padding:12px 12px 15px;border-bottom:3px double var(--ink)}
+ .center-panel .hero-art{height:min(78vw,340px);min-height:220px}
+ .center-edition,.center-colophon{font-size:7px}
+ .center-caption{font-size:12px;margin:8px 0}
+ .photography-column{grid-row:2;border-right:0;border-bottom:1px solid var(--rule)}
+ .writing-column{grid-row:3;border-left:0}
+ .news-column{padding:16px}
+ .news-column h2{font-size:24px}
+ .photo-entries{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 12px}
+ .photo-thumb{height:clamp(110px,38vw,210px)}
+ .writing-entry strong{font-size:18px}
+ .newspaper-footer{flex-wrap:wrap;font-size:6px}
+}
+@media(max-width:380px){.masthead-title h1{font-size:21px}.masthead-subtitle{display:none}.photo-entries{grid-template-columns:1fr}}
