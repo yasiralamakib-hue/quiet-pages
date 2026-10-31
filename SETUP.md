@@ -24,6 +24,6 @@ Only published posts are visible to visitors. Unpublished drafts are private to 
 
 - Edit the words and page structure in index.html.
 - Edit colors and page styling in styles.css. The newspaper palette uses aged sand, charcoal ink, and faded terracotta.
-- Keep akib.png, hair-band.png, ear-ring-bow.png, and ear-ring.png beside index.html. Each supplied transparent image is positioned individually in the left rail on desktop and phone. The image proportions are preserved while the journal column uses the remaining screen width. Do not remove these image files.
+- Keep astray-logo.png, hair-band.png, ear-ring-bow.png, and ear-ring.png beside index.html. The logo replaces the portrait, and “ASTRAY” uses an Old English display font. Keep astray-icon-192.png and astray-icon-512.png beside the manifest so the installed app uses the new logo too. The other layout stays the same.
 - Keep both fancy-bangla-unicode.otf and fancy-bangla.ttf beside styles.css so Bangla text can use the supplied handwriting fonts.
 - Leave config.js unchanged unless you are intentionally connecting a different Supabase project.
