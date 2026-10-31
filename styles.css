@@ -124,9 +124,9 @@ button,input,textarea,select{font:inherit}
  .brand-portrait{width:78%;height:auto;aspect-ratio:1;object-position:center}
  .rail-brand>span{font-size:clamp(10px,3vw,13px);letter-spacing:.9px}
  .rail-object{left:10%;height:auto;aspect-ratio:1;transform:none}
- .rail-hairband{top:26%;width:80%}
- .rail-bow{top:48%;width:80%}
- .rail-ring{top:68%;width:80%}
+ .rail-hairband{top:24%;width:80%}
+ .rail-bow{top:34%;width:80%}
+ .rail-ring{top:44%;width:80%}
  .rail-foot{left:6%;right:auto;bottom:2%;font-size:5px;letter-spacing:.35px}
  .journal-content{min-height:100vh;min-height:100svh}
  .topline{top:16px;right:16px}
