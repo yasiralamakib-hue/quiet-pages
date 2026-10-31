@@ -22,6 +22,6 @@ Only published posts are visible to visitors. Unpublished drafts are private to 
 
 - Edit the words and page structure in index.html.
 - Edit colors and page styling in styles.css. The newspaper palette uses aged sand, charcoal ink, and faded terracotta.
-- Keep astray-sidebar.png and astray-mobile-header.png beside index.html. They use your reference artwork without recoloring; the phone header uses a compact crop so it does not stretch.
+- Keep astray-sidebar.png beside index.html. It is the complete left-side composition from your reference image, used as supplied without recoloring.
 - Keep both fancy-bangla-unicode.otf and fancy-bangla.ttf beside styles.css so Bangla text can use the supplied handwriting fonts.
 - Leave config.js unchanged unless you are intentionally connecting a different Supabase project.
