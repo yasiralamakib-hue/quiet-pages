@@ -1,4 +1,4 @@
-# The Quiet Pages — vintage newspaper journal
+# Astray — vintage newspaper journal
 
 The website has a public journal and a private author desk. To connect its backend, follow these steps:
 
@@ -20,6 +20,6 @@ Only published posts are visible to visitors. Unpublished drafts are private to 
 ## Changing the page
 
 - Edit the words and page structure in index.html.
-- Edit colors and page styling in styles.css. The newspaper palette uses cream #f5f5dc and maroon #800000.
+- Edit colors and page styling in styles.css. The newspaper palette uses aged sand, charcoal ink, and faded press-red. The masthead uses a blackletter headline; the remaining English text uses a readable old-style serif.
 - Keep both fancy-bangla-unicode.otf and fancy-bangla.ttf beside styles.css so Bangla text can use the supplied handwriting fonts.
 - Leave config.js unchanged unless you are intentionally connecting a different Supabase project.
