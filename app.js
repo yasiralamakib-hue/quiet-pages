@@ -85,6 +85,8 @@ if (login) {
   async function showDashboard(current) {
     panel.hidden = !!current;
     dashboard.hidden = !current;
+    const logoutButton = document.querySelector('#sign-out');
+    if (logoutButton) logoutButton.hidden = !current;
     if (current) { try { await loadAdminPosts(); } catch (error) { showMessage(editor,error.message); } }
   }
   login.addEventListener('submit', async event => {

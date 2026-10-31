@@ -5,41 +5,53 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="description" content="Astray — a personal journal of photographs and writing.">
   <title>Astray — A Personal Journal</title>
-  <link rel="stylesheet" href="styles.css?v=6">
+  <link rel="stylesheet" href="styles.css?v=7">
 </head>
 <body class="journal-page">
-  <header id="top" class="newspaper-masthead">
-    <div class="masthead-mark">A</div>
-    <div class="masthead-title"><p class="masthead-kicker">A PERSONAL ARCHIVE OF WORDS &amp; MOMENTS</p><h1>Astray</h1><p class="masthead-subtitle">Photographs · Stories · Notes from a life in progress</p></div>
-    <a class="author-link" href="admin.html">AUTHOR DESK ↗</a>
-    <div class="masthead-rule"><span>VOL. I</span><span>EST. 2026</span><span>OPEN EDITION</span></div>
-  </header>
-  <main class="newspaper-page">
-    <section class="news-column photography-column" aria-labelledby="photo-heading">
-      <p class="column-index">PICTURE DESK · 01</p>
-      <h2 id="photo-heading">Photographs</h2>
-      <p class="column-intro">Small scenes, kept in light.</p>
-      <div id="photo-entries" class="photo-entries"><p class="empty-note">Opening the photograph archive…</p></div>
-    </section>
-    <div class="center-panel">
-      <p class="center-edition">ASTRAY · WEEKLY JOURNAL</p>
-      <div class="hero-art" role="img" aria-label="A quiet figure beneath the moon, among hills and stars">
-        <div class="art-sky"><span class="moon"></span><span class="star star-a">✦</span><span class="star star-b">✧</span><span class="star star-c">·</span></div>
-        <div class="art-mountains"></div><div class="art-ground"></div><div class="art-person"><i></i></div>
-        <div class="art-caption">FIG. 01 · THE QUIET BETWEEN</div>
-      </div>
-      <p class="center-caption">A place for the things worth remembering.</p>
-      <div class="center-colophon">WORDS WORTH KEEPING · MOMENTS WORTH REMEMBERING</div>
-    </div>
-    <section class="news-column writing-column" aria-labelledby="writing-heading">
-      <p class="column-index">THE WRITING ROOM · 02</p>
-      <h2 id="writing-heading">Writing</h2>
-      <p class="column-intro">Essays, poems, stories, and passing thoughts.</p>
-      <div id="writing-entries" class="writing-entries"><p class="empty-note">Opening the writing archive…</p></div>
-    </section>
-  </main>
-  <footer class="newspaper-footer"><span>ASTRAY · PERSONAL ARCHIVE</span><span>MADE SLOWLY, WITH CARE</span><a href="#top">BACK TO TOP ↑</a></footer>
-  <dialog id="post-dialog"><button class="close" aria-label="Close">×</button><article id="post-detail"></article></dialog>
-  <script type="module" src="app.js?v=6"></script>
+  <aside class="identity-rail">
+    <a class="rail-brand" href="index.html" aria-label="Astray home"><span>A.</span></a>
+    <p class="rail-kicker">A JOURNAL<br>OF OBSERVATION</p>
+    <p class="rail-issue">ISSUE 001 · 2026</p>
+    <div class="rail-name">ASTRAY</div>
+    <p class="rail-note">For the places we pass, the people we meet, and the moments we keep.</p>
+    <nav class="rail-links" aria-label="Journal sections">
+      <a href="#photographs">PHOTOGRAPHS</a>
+      <a href="#writing">WRITING</a>
+    </nav>
+    <p class="rail-foot">PERSONAL ARCHIVE<br>VOL. I</p>
+  </aside>
+  <div class="journal-content">
+    <header class="topline">
+      <span>FIELD NOTES · PHOTOGRAPHY · WRITING</span>
+      <nav><a href="#photographs">PHOTOGRAPHS</a><a href="#writing">WRITING</a><a href="admin.html">AUTHOR DESK ↗</a></nav>
+    </header>
+    <header class="masthead">
+      <p class="masthead-kicker">A PERSONAL JOURNAL</p>
+      <h1>ASTRAY</h1>
+      <p class="masthead-subtitle">Notes from a life in motion.</p>
+    </header>
+    <main class="journal-grid">
+      <section class="journal-section photographs-section" id="photographs" aria-labelledby="photographs-title">
+        <div class="section-heading">
+          <div><p class="section-kicker">THE PICTURE DESK · 01</p><h2 id="photographs-title">Photographs</h2></div>
+          <p class="section-note">Small scenes, kept in light.</p>
+        </div>
+        <div id="photo-entries" class="photo-entries"><p class="empty-note">Opening the photograph archive…</p></div>
+      </section>
+      <section class="journal-section writing-section" id="writing" aria-labelledby="writing-title">
+        <div class="section-heading">
+          <div><p class="section-kicker">NOTES FROM THE JOURNAL · 02</p><h2 id="writing-title">Writing</h2></div>
+          <p class="section-note">Essays, poems, stories, and passing thoughts.</p>
+        </div>
+        <div id="writing-entries" class="writing-entries"><p class="empty-note">Opening the writing archive…</p></div>
+      </section>
+    </main>
+    <footer class="journal-footer"><span>ASTRAY · PERSONAL ARCHIVE</span><span>PHOTOGRAPHS AND WRITING · OPEN EDITION</span><span>MADE SLOWLY, WITH CARE</span></footer>
+  </div>
+  <dialog id="post-dialog" class="entry-dialog">
+    <button class="close" aria-label="Close entry">×</button>
+    <article id="post-detail"></article>
+  </dialog>
+  <script type="module" src="app.js?v=7"></script>
 </body>
 </html>

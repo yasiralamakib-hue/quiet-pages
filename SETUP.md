@@ -12,14 +12,15 @@ Only published posts are visible to visitors. Unpublished drafts are private to 
 
 ## Adding photographs and writing
 
-- To place an entry in the left photograph column, choose Photography or upload a photograph with the entry.
-- To place an entry in the right writing column, choose Journal, Writing, or Poetry and leave the photograph field empty.
+- Entries with a photograph or the Photography category appear in the photography gallery.
+- Text-only Journal, Writing, and Poetry entries appear in the writing column.
 - Only published entries appear on the public page. Use the edit and delete controls on the author desk to manage entries later.
-- The center illustration stays in place. The public journal is one page; admin.html remains the separate private author desk.
+- The public homepage is one page; admin.html is the separate private author desk. Clicking a published item opens it in a large reading view.
+- After signing in, use LOG OUT in the author desk header on whichever device you are using.
 
 ## Changing the page
 
 - Edit the words and page structure in index.html.
-- Edit colors and page styling in styles.css. The newspaper palette uses aged sand, charcoal ink, and faded press-red. The masthead uses a blackletter headline; the remaining English text uses a readable old-style serif.
+- Edit colors and page styling in styles.css. The newspaper palette uses aged sand, charcoal ink, and faded terracotta.
 - Keep both fancy-bangla-unicode.otf and fancy-bangla.ttf beside styles.css so Bangla text can use the supplied handwriting fonts.
 - Leave config.js unchanged unless you are intentionally connecting a different Supabase project.
