@@ -2,32 +2,44 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="description" content="Astray — photographs and writing from a life in motion.">
   <meta name="theme-color" content="#c97b68">
   <title>Astray — Personal Archive</title>
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="apple-touch-icon" href="astray-icon-192.png">
-  <link rel="stylesheet" href="styles.css?v=19">
+  <link rel="stylesheet" href="styles.css?v=20">
 </head>
 <body class="journal-page">
-  <aside class="identity-rail" aria-label="Astray personal archive">
-    <a class="rail-brand" href="index.html" aria-label="Astray home">
-      <img class="brand-portrait" src="astray-logo.png" alt="">
-    </a>
-    <img class="rail-object rail-hairband" src="hair-band.png" alt="Hairband">
-    <img class="rail-object rail-bow" src="ear-ring-bow.png" alt="Bow earring">
-    <img class="rail-object rail-ring" src="ear-ring.png" alt="Ring earring">
+  <aside class="identity-rail" aria-label="Astray journal controls">
+    <a class="rail-brand" href="index.html" aria-label="Astray home"><img class="brand-portrait" src="astray-logo.png" alt="Astray"></a>
+    <div class="rail-filters" aria-label="Filter entries">
+      <button class="filter-card filter-all active" type="button" data-filter="all"><span>ALL <span aria-hidden="true">▦</span></span><strong id="count-all">00</strong><i aria-hidden="true">●</i></button>
+      <button class="filter-card filter-photo" type="button" data-filter="photo"><span>PHOTO <span aria-hidden="true">▧</span></span><strong id="count-photo">00</strong><i aria-hidden="true">●</i></button>
+      <button class="filter-card filter-write" type="button" data-filter="write"><span>WRITE <span aria-hidden="true">✎</span></span><strong id="count-write">00</strong><i aria-hidden="true">●</i></button>
+    </div>
+    <section class="music-player rail-player" aria-label="Music player">
+      <div class="record-art" aria-hidden="true"><span></span></div>
+      <div class="player-track"><strong id="public-track-title">Select a playlist</strong><small id="public-track-subtitle">ASTRAY RADIO</small></div>
+      <div class="player-progress"><span id="public-progress"></span></div>
+      <div class="player-controls">
+        <button id="public-prev" type="button" aria-label="Previous song">|◀</button>
+        <button id="public-play" class="play-toggle" type="button" aria-label="Play">▶</button>
+        <button id="public-next" type="button" aria-label="Next song">▶|</button>
+      </div>
+      <label class="playlist-select-label" for="public-playlist">PLAYLIST</label>
+      <select id="public-playlist" aria-label="Choose a playlist"><option value="">Choose a playlist</option></select>
+      <audio id="public-audio" preload="metadata"></audio>
+    </section>
+    <label class="volume-card" for="public-volume"><span>VOL.</span><output id="public-volume-value" for="public-volume">03</output><input id="public-volume" type="range" min="1" max="10" value="3" aria-label="Volume"></label>
     <p class="rail-foot">PERSONAL ARCHIVE<br>VOL. I</p>
   </aside>
   <main class="journal-content">
-    <header class="topline"><nav class="top-actions"><button id="install-app" class="top-action" type="button">[ DOWNLOAD ]</button><a href="admin.html">AUTHOR DESK ·</a></nav><p id="install-message" class="install-message" role="status" hidden></p></header>
+    <header class="topline"><nav class="top-actions"><button id="install-app" class="top-action" type="button">[ DOWNLOAD ]</button><a href="admin.html">[ AUTHOR DESK ]</a></nav><p id="install-message" class="install-message" role="status" hidden></p></header>
     <section id="journal-feed" class="journal-feed" aria-label="Published photographs and writing"></section>
+    <p id="empty-state" class="empty-state" hidden></p>
   </main>
-  <dialog id="post-dialog" class="entry-dialog">
-    <button class="close" aria-label="Close entry">×</button>
-    <article id="post-detail"></article>
-  </dialog>
-  <script type="module" src="app.js?v=10"></script>
+  <dialog id="post-dialog" class="entry-dialog"><button class="close" aria-label="Close entry">×</button><article id="post-detail"></article></dialog>
+  <script type="module" src="app.js?v=12"></script>
 </body>
 </html>
