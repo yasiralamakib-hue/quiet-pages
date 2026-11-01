@@ -1,6 +1,6 @@
-const CACHE = 'astray-shell-v3';
+const CACHE = 'astray-shell-v4';
 const SHELL = [
-  './', './index.html', './admin.html', './styles.css?v=20', './app.js?v=12',
+  './', './index.html', './admin.html', './styles.css?v=21', './app.js?v=12',
   './config.js', './manifest.webmanifest', './astray-logo.png',
   './astray-icon-192.png', './astray-icon-512.png', './hair-band.png',
   './ear-ring-bow.png', './ear-ring.png'
