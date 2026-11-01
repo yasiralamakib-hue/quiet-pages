@@ -11,9 +11,9 @@ button{color:inherit}
 
 /* Public journal: a useful rail beside a calm, open archive. */
 .journal-page{min-height:100vh;display:grid;grid-template-columns:clamp(190px,14vw,248px) minmax(0,1fr);background:var(--paper)}
-.identity-rail{position:sticky;top:0;align-self:start;height:100vh;height:100svh;min-height:540px;overflow-x:hidden;overflow-y:auto;scrollbar-width:thin;background:var(--terracotta);padding:16px 13px 12px;display:flex;flex-direction:column;gap:12px;z-index:4}
-.rail-brand{display:flex;flex:0 0 auto;align-items:center;justify-content:center;width:100%;height:auto;min-height:0;margin:0 0 5px;text-decoration:none}
-.brand-portrait{display:block;width:100%;height:auto;object-fit:contain;object-position:center}
+.identity-rail{position:sticky;top:0;align-self:start;height:100vh;height:100svh;min-height:540px;overflow-x:hidden;overflow-y:auto;scrollbar-width:thin;background:var(--terracotta);padding:20px 13px 12px;display:flex;flex-direction:column;gap:18px;z-index:4}
+.rail-brand{display:flex;flex:0 0 auto;align-items:center;justify-content:center;width:100%;height:auto;min-height:0;margin:0 auto 4px;text-decoration:none}
+.brand-portrait{display:block;width:90%;max-width:190px;height:auto;object-fit:contain;object-position:center}
 .rail-filters{display:grid;flex:0 0 auto;gap:11px}
 .filter-card{position:relative;display:block;width:100%;height:clamp(78px,12vh,128px);min-height:78px;overflow:hidden;border:1.5px solid #211d18;background:var(--orange);border-radius:clamp(16px,1.6vw,25px);text-align:left;padding:10px 12px;cursor:pointer;transition:transform .18s,box-shadow .18s}
 .filter-card:hover{transform:translateY(-1px)}
@@ -22,8 +22,8 @@ button{color:inherit}
 .filter-icon{position:absolute;z-index:2;top:13px;right:13px;width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .filter-card:first-child .filter-icon rect:last-child{fill:currentColor}
 .filter-card strong{position:absolute;z-index:2;left:13px;bottom:8px;font:700 clamp(27px,3vw,38px)/.9 var(--mono);letter-spacing:-1.5px}
-.filter-object{position:absolute;z-index:1;left:60%;top:55%;width:39%;height:64%;object-fit:contain;transform:translate(-50%,-50%);pointer-events:none}
-.filter-bow{width:42%;height:61%}.filter-ring{width:43%;height:64%}
+.filter-object{position:absolute;z-index:1;left:61%;top:56%;width:48%;height:76%;object-fit:contain;transform:translate(-50%,-50%);pointer-events:none}
+.filter-bow{width:49%;height:72%}.filter-ring{width:50%;height:74%}
 .filter-indicator{position:absolute;z-index:2;right:12px;bottom:11px;width:13px;height:13px;border:1.5px solid #211d18;border-radius:50%;background:transparent}
 .filter-card.active .filter-indicator{background:#211d18}
 .filter-photo{background:var(--sage)}.filter-write{background:#d8d2bf}
@@ -158,8 +158,8 @@ button{color:inherit}
 }
 @media(max-width:620px){
  .journal-page{grid-template-columns:clamp(76px,22vw,92px) minmax(0,1fr);min-height:100svh}
- .identity-rail{padding:10px 7px max(12px,env(safe-area-inset-bottom));gap:9px;min-height:100svh}
- .rail-brand{width:100%;height:auto;min-height:0;margin:0 0 4px}.filter-card{height:clamp(86px,12svh,118px);min-height:78px;padding:8px 7px;border-radius:14px}.filter-label{top:8px;left:7px;padding:3px 5px;font-size:6px;letter-spacing:.6px}.filter-icon{top:9px;right:8px;width:16px;height:16px}.filter-card strong{left:7px;bottom:8px;font-size:clamp(19px,6vw,25px);letter-spacing:-1px}.filter-object{left:61%;top:57%;width:46%;height:62%}.filter-bow{width:49%;height:58%}.filter-ring{width:48%;height:62%}.filter-indicator{right:7px;bottom:8px;width:10px;height:10px}
+ .identity-rail{padding:14px 7px max(12px,env(safe-area-inset-bottom));gap:14px;min-height:100svh}
+ .rail-brand{width:100%;height:auto;min-height:0;margin:0 auto 3px}.brand-portrait{width:94%;max-width:none}.filter-card{height:clamp(86px,12svh,118px);min-height:78px;padding:8px 7px;border-radius:14px}.filter-label{top:8px;left:7px;padding:3px 5px;font-size:6px;letter-spacing:.6px}.filter-icon{top:9px;right:8px;width:16px;height:16px}.filter-card strong{left:7px;bottom:8px;font-size:clamp(19px,6vw,25px);letter-spacing:-1px}.filter-object{left:61%;top:57%;width:54%;height:77%}.filter-bow{width:57%;height:72%}.filter-ring{width:56%;height:74%}.filter-indicator{right:7px;bottom:8px;width:10px;height:10px}
  .rail-filters{flex:0 0 auto;min-height:0;display:grid;gap:10px;margin-bottom:auto}.rail-player{flex:0 0 auto}.volume-card{flex:0 0 auto}.rail-foot{flex:0 0 auto;margin:0}
  .rail-player{padding:6px 5px;border-radius:12px;gap:4px}.rail-player .record-art{width:38px}.player-track strong{font-size:10px}.player-track small{font-size:5px;letter-spacing:.4px}.rail-player .player-controls{gap:0}.rail-player .player-controls button{font-size:9px;padding:3px 1px}.rail-player .player-controls .play-toggle{width:28px;height:28px;font-size:9px}.playlist-select-label{font-size:5px}.rail-player select{font-size:8px;padding:5px 4px;border-radius:10px}
  .volume-card{padding:6px;border-radius:10px;gap:3px}.volume-card>span{font-size:5px}.volume-card output{font-size:23px}.volume-card input{width:33px;height:14px}

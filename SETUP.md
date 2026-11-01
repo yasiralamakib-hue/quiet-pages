@@ -27,6 +27,6 @@ Only published posts are visible to visitors. Unpublished drafts are private to 
 
 - Edit the page structure in index.html and admin.html.
 - Edit colors and page styling in styles.css. The palette uses aged paper, charcoal ink, terracotta, orange, and sage.
-- Keep astray-logo.png, hair-band.png, ear-ring-bow.png, and ear-ring.png beside index.html. The logo replaces the portrait, and “ASTRAY” uses an Old English display font. Keep astray-icon-192.png and astray-icon-512.png beside the manifest so the installed app uses the new logo too. The other layout stays the same.
+- Keep astray-logo.svg, astray-icon.svg, astray-icon-192.png, and astray-icon-512.png beside the HTML files and manifest. The SVG logo stays sharp at every size, and the PNG copies support app installation on more devices. Keep hair-band-display.png, ear-ring-bow-display.png, and ear-ring-display.png beside index.html; these keep the original decorations intact while trimming only their empty transparent margins for clearer display.
 - Bangla text uses Noto Serif Bengali for a readable newspaper style when the page is online. English uses IM Fell English for the classic book-print look.
 - Leave config.js unchanged unless you are intentionally connecting a different Supabase project.

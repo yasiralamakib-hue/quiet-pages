@@ -1,9 +1,9 @@
-const CACHE = 'astray-shell-v6';
+const CACHE = 'astray-shell-v8';
 const SHELL = [
-  './', './index.html', './admin.html', './styles.css?v=23', './app.js?v=12',
-  './config.js', './manifest.webmanifest', './astray-logo.png',
-  './astray-icon-192.png', './astray-icon-512.png', './hair-band.png',
-  './ear-ring-bow.png', './ear-ring.png'
+  './', './index.html', './admin.html', './styles.css?v=25', './app.js?v=12',
+  './config.js', './manifest.webmanifest', './astray-logo.svg', './astray-icon.svg',
+  './astray-icon-192.png', './astray-icon-512.png', './hair-band-display.png',
+  './ear-ring-bow-display.png', './ear-ring-display.png'
 ];
 
 self.addEventListener('install', event => {
