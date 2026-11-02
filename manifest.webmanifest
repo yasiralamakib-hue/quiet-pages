@@ -1,8 +1,8 @@
 {
   "id": "./index.html",
-  "name": "Astray — Personal Journal",
-  "short_name": "Astray",
-  "description": "A personal archive of photographs and writing.",
+  "name": "Ashtray — Personal Journal",
+  "short_name": "Ashtray",
+  "description": "A personal archive of photographs, videos, and writing.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",

@@ -12,7 +12,7 @@ const byId = id => document.getElementById(id);
 
 // Keep the app shell available for launch/install; the live journal and audio use the network.
 if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
-  window.addEventListener('load', () => navigator.serviceWorker.register('./service-worker.js').catch(error => console.warn('Astray offline shell unavailable.', error)));
+  window.addEventListener('load', () => navigator.serviceWorker.register('./service-worker.js').catch(error => console.warn('Ashtray offline shell unavailable.', error)));
 }
 
 let installPrompt = null;
@@ -27,12 +27,12 @@ window.addEventListener('appinstalled', () => { installPrompt = null; if (instal
 if (installButton) installButton.addEventListener('click', async () => {
   if (installPrompt) {
     try { await installPrompt.prompt(); const choice = await installPrompt.userChoice; installPrompt = null; if (choice?.outcome === 'accepted') installButton.textContent = '[ INSTALLING ]'; }
-    catch { installPrompt = null; if (installMessage) { installMessage.textContent = 'Use your browser menu and choose Install Astray or Add to Home Screen.'; installMessage.hidden = false; } }
+    catch { installPrompt = null; if (installMessage) { installMessage.textContent = 'Use your browser menu and choose Install Ashtray or Add to Home Screen.'; installMessage.hidden = false; } }
     return;
   }
   if (installMessage) {
     const agent = navigator.userAgent;
-    installMessage.textContent = /iPhone|iPad|iPod/i.test(agent) ? 'On iPhone or iPad: tap Share, then Add to Home Screen.' : /Android/i.test(agent) ? 'On Android: open the browser menu ⋮ and choose Install app or Add to Home screen.' : 'Open your browser menu and choose Install Astray or Install app.';
+    installMessage.textContent = /iPhone|iPad|iPod/i.test(agent) ? 'On iPhone or iPad: tap Share, then Add to Home Screen.' : /Android/i.test(agent) ? 'On Android: open the browser menu ⋮ and choose Install Ashtray or Add to Home screen.' : 'Open your browser menu and choose Install Ashtray or Install app.';
     installMessage.hidden = false;
   }
 });
@@ -64,7 +64,9 @@ async function api(path, options = {}) {
 }
 function setMessage(node, text) { if (node) node.textContent = text || ''; }
 function showMessage(form, text) { setMessage(form?.querySelector('.form-message'),text); }
-const isPhoto = post => !!post.photo_url || /photo/i.test(post.category||'');
+const isVideoUrl = url => /\.(?:mp4|webm|mov|m4v|ogv)(?:[?#]|$)/i.test(String(url||''));
+const isVideo = post => /video/i.test(post.category||'') || isVideoUrl(post.photo_url);
+const isPhoto = post => !!post.photo_url || /photo|video/i.test(post.category||'');
 const postKind = post => isPhoto(post) ? 'photo' : 'write';
 const publicUrl = path => base+'/storage/v1/object/public/astray-music/'+String(path||'').split('/').map(encodeURIComponent).join('/');
 
@@ -77,8 +79,9 @@ function renderPublicPosts() {
   const visible = publicPosts.filter(post => activeFilter === 'all' || postKind(post) === activeFilter);
   node.innerHTML = visible.map((post,index) => {
     const photo = isPhoto(post);
-    const image = photo ? '<span class="entry-image"><img src="'+esc(post.photo_url)+'" alt="'+esc(post.title)+'" loading="lazy"></span>' : '';
-    const category = post.category || (photo ? 'Photography' : 'Writing');
+    const video = isVideo(post);
+    const image = photo ? '<span class="entry-image'+(video?' entry-video':'')+'">'+(video?'<video src="'+esc(post.photo_url)+'" muted playsinline preload="metadata" aria-label="Video: '+esc(post.title)+'"></video><span class="video-chip" aria-hidden="true">▶ VIDEO</span>':'<img src="'+esc(post.photo_url)+'" alt="'+esc(post.title)+'" loading="lazy">')+'</span>' : '';
+    const category = video ? 'Video' : post.category || (photo ? 'Photography' : 'Writing');
     return '<button class="journal-entry '+(photo?'with-photo':'writing-only')+'" data-post="'+esc(post.id)+'" data-index="'+(index+1)+'" type="button">'+image+'<span class="entry-copy"><span class="entry-date">'+esc(category)+' · '+esc(niceDate(post.created_at))+'</span><strong>'+esc(post.title)+'</strong>'+(post.excerpt?'<span class="entry-excerpt">'+esc(post.excerpt)+'</span>':'')+'<span class="entry-number">'+String(index+1).padStart(2,'0')+'</span></span></button>';
   }).join('');
   const empty = byId('empty-state');
@@ -100,12 +103,14 @@ const feed = byId('journal-feed');
 feed?.addEventListener('click',event => {
   const button=event.target.closest('[data-post]'); if(!button)return;
   const post=publicPosts.find(item=>String(item.id)===button.dataset.post);if(!post)return;
-  const photo=isPhoto(post);
+  const photo=isPhoto(post),video=isVideo(post);
   const body=esc(post.body||'').split('\n').map(line=>line.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\*(.+?)\*/g,'<em>$1</em>')).join('\n');
-  byId('post-detail').innerHTML=(photo?'<img class="detail-photo" src="'+esc(post.photo_url)+'" alt="'+esc(post.title)+'">':'')+'<p class="entry-date">'+esc(post.category|| (photo?'Photography':'Writing'))+' · '+esc(niceDate(post.created_at))+'</p><h1>'+esc(post.title)+'</h1>'+(post.excerpt?'<p class="detail-excerpt">'+esc(post.excerpt)+'</p>':'')+'<div class="prose">'+body+'</div>';
+  const media=video?'<video class="detail-video" src="'+esc(post.photo_url)+'" controls playsinline preload="metadata" aria-label="'+esc(post.title)+'"></video>':photo?'<img class="detail-photo" src="'+esc(post.photo_url)+'" alt="'+esc(post.title)+'">':'';
+  byId('post-detail').innerHTML=media+'<p class="entry-date">'+esc(video?'Video':post.category|| (photo?'Photography':'Writing'))+' · '+esc(niceDate(post.created_at))+'</p><h1>'+esc(post.title)+'</h1>'+(post.excerpt?'<p class="detail-excerpt">'+esc(post.excerpt)+'</p>':'')+'<div class="prose">'+body+'</div>';
   byId('post-dialog').showModal();
 });
 byId('post-dialog')?.querySelector('.close')?.addEventListener('click',()=>byId('post-dialog').close());
+byId('post-dialog')?.addEventListener('close',()=>byId('post-detail')?.querySelectorAll('video').forEach(video=>video.pause()));
 
 function setPlaylistOptions(select,playlists) {
   if(!select)return;
@@ -125,14 +130,14 @@ function createPlayer(prefix,playlists,tracks) {
     const track=queue[index];
     if(!mediaSession)return;
     try{
-      if(track&&'MediaMetadata' in window)mediaSession.metadata=new MediaMetadata({title:track.title||'Astray',artist:currentPlaylist()?.name||'Astray Radio',album:'Astray',artwork:[{src:new URL('./astray-icon-512.png',location.href).href,sizes:'512x512',type:'image/png'}]});
+      if(track&&'MediaMetadata' in window)mediaSession.metadata=new MediaMetadata({title:track.title||'Ashtray',artist:currentPlaylist()?.name||'Ashtray Radio',album:'Ashtray',artwork:[{src:new URL('./astray-icon-512.png',location.href).href,sizes:'512x512',type:'image/png'}]});
       else mediaSession.metadata=null;
     }catch{}
   };
   const paint=()=>{
     const track=queue[index];
     if(title)title.textContent=track?.title||'Select a playlist';
-    if(subtitle)subtitle.textContent=track?(currentPlaylist()?.name||'ASTRAY RADIO'):'ASTRAY RADIO';
+    if(subtitle)subtitle.textContent=track?(currentPlaylist()?.name||'ASHTRAY RADIO'):'ASHTRAY RADIO';
     if(playButton){playButton.textContent=audio.paused?'▶':'Ⅱ';playButton.setAttribute('aria-label',audio.paused?'Play':'Pause');}
     if(progress)progress.style.width=(audio.duration?audio.currentTime/audio.duration*100:0)+'%';
     if(mediaSession){try{mediaSession.playbackState=track?(audio.paused?'paused':'playing'):'none';}catch{}}
@@ -177,7 +182,7 @@ async function loadPublic() {
       const [playlists,tracks]=await Promise.all([api('/rest/v1/playlists?select=*&order=slot.asc'),api('/rest/v1/playlist_tracks?select=*&order=sort_order.asc')]);
       createPlayer('public',playlists,tracks);
     } catch(error) { console.warn('Playlist setup is not available yet.',error);createPlayer('public',[],[]); }
-  } catch(error) { console.error('Astray entries could not be loaded.',error);const empty=byId('empty-state');if(empty){empty.textContent='The archive could not load right now. Please refresh in a moment.';empty.hidden=false;} }
+  } catch(error) { console.error('Ashtray entries could not be loaded.',error);const empty=byId('empty-state');if(empty){empty.textContent='The archive could not load right now. Please refresh in a moment.';empty.hidden=false;} }
 }
 void loadPublic();
 
@@ -185,7 +190,18 @@ void loadPublic();
 const login=byId('login-form');
 if(login){
   const panel=byId('sign-in'),dashboard=byId('dashboard'),writeForm=byId('post-form'),photoForm=byId('photo-form'),postList=byId('admin-posts');
-  let adminRows=[],playlists=[],tracks=[],currentPhotoUrl=null,activeTab='writing';
+  let adminRows=[],playlists=[],tracks=[],currentMediaUrl=null,previewObjectUrl=null,activeTab='writing';
+  const previewImage=byId('media-preview-image'),previewVideo=byId('media-preview-video');
+  function clearMediaPreview(){
+    if(previewObjectUrl){URL.revokeObjectURL(previewObjectUrl);previewObjectUrl=null;}
+    if(previewImage){previewImage.removeAttribute('src');previewImage.hidden=true;}
+    if(previewVideo){previewVideo.pause();previewVideo.removeAttribute('src');previewVideo.load();previewVideo.hidden=true;}
+  }
+  function showMediaPreview(url,video){
+    clearMediaPreview();if(!url)return;
+    if(video&&previewVideo){previewVideo.src=url;previewVideo.hidden=false;previewVideo.play().catch(()=>{});}
+    else if(previewImage){previewImage.src=url;previewImage.hidden=false;}
+  }
   function switchTab(name){
     activeTab=name;
     for(const tab of document.querySelectorAll('.desk-tab')){const active=tab.dataset.panel===name;tab.classList.toggle('active',active);tab.setAttribute('aria-selected',String(active));}
@@ -194,7 +210,7 @@ if(login){
   document.querySelectorAll('.desk-tab').forEach(tab=>tab.addEventListener('click',()=>switchTab(tab.dataset.panel)));
   async function loadAdminPosts(){
     adminRows=await api('/rest/v1/posts?select=*&order=created_at.desc');
-    postList.innerHTML=adminRows.length?adminRows.map(post=>'<article class="admin-row"><div><strong>'+esc(post.title)+'</strong><small>'+esc(post.category||'Writing')+' · '+(post.published?'PUBLISHED':'DRAFT')+'</small></div><div class="admin-row-actions"><button class="text-button" type="button" data-edit="'+esc(post.id)+'">EDIT</button><button class="text-button" type="button" data-delete="'+esc(post.id)+'">DELETE</button></div></article>').join(''):'<p class="muted">Your saved entries will appear here.</p>';
+    postList.innerHTML=adminRows.length?adminRows.map(post=>'<article class="admin-row"><div><strong>'+esc(post.title)+'</strong><small>'+esc(isVideo(post)?'Video':post.category||'Writing')+' · '+(post.published?'PUBLISHED':'DRAFT')+'</small></div><div class="admin-row-actions"><button class="text-button" type="button" data-edit="'+esc(post.id)+'">EDIT</button><button class="text-button" type="button" data-delete="'+esc(post.id)+'">DELETE</button></div></article>').join(''):'<p class="muted">Your saved entries will appear here.</p>';
   }
   async function loadMusicAdmin(){
     try { playlists=await api('/rest/v1/playlists?select=*&order=slot.asc');tracks=await api('/rest/v1/playlist_tracks?select=*&order=sort_order.asc');renderPlaylistManager();createPlayer('desk',playlists,tracks); }
@@ -213,17 +229,17 @@ if(login){
   });
   if(!ready)showMessage(login,'Setup missing. Check config.js.');else getFreshSession().then(showDashboard).catch(error=>showMessage(login,error.message));
   byId('sign-out')?.addEventListener('click',async()=>{try{await api('/auth/v1/logout',{method:'POST'});}catch{}clearSession();await showDashboard(null);});
-  byId('new-entry')?.addEventListener('click',()=>{writeForm.reset();photoForm.reset();writeForm.elements.id.value='';photoForm.elements.id.value='';currentPhotoUrl=null;byId('photo-preview').hidden=true;switchTab('writing');window.scrollTo({top:0,behavior:'smooth'});});
+  byId('new-entry')?.addEventListener('click',()=>{writeForm.reset();photoForm.reset();writeForm.elements.id.value='';photoForm.elements.id.value='';currentMediaUrl=null;clearMediaPreview();switchTab('writing');window.scrollTo({top:0,behavior:'smooth'});});
   postList?.addEventListener('click',async event=>{
     const edit=event.target.closest('[data-edit]'),remove=event.target.closest('[data-delete]');
-    if(edit){const post=adminRows.find(item=>String(item.id)===edit.dataset.edit);if(!post)return;const form=isPhoto(post)?photoForm:writeForm;writeForm.reset();photoForm.reset();preview.hidden=true;writeForm.elements.id.value=post.id;photoForm.elements.id.value=post.id;currentPhotoUrl=post.photo_url||null;
-      if(isPhoto(post)){photoForm.elements.title.value=post.title||'';photoForm.elements.excerpt.value=post.excerpt||'';if(currentPhotoUrl){byId('photo-preview').src=currentPhotoUrl;byId('photo-preview').hidden=false;}switchTab('photo');}
+    if(edit){const post=adminRows.find(item=>String(item.id)===edit.dataset.edit);if(!post)return;const form=isPhoto(post)?photoForm:writeForm;writeForm.reset();photoForm.reset();clearMediaPreview();writeForm.elements.id.value=post.id;photoForm.elements.id.value=post.id;currentMediaUrl=post.photo_url||null;
+      if(isPhoto(post)){photoForm.elements.title.value=post.title||'';photoForm.elements.excerpt.value=post.excerpt||'';if(currentMediaUrl)showMediaPreview(currentMediaUrl,isVideo(post));switchTab('photo');}
       else{writeForm.elements.title.value=post.title||'';writeForm.elements.excerpt.value=post.excerpt||'';writeForm.elements.body.value=post.body||'';switchTab('writing');}
       window.scrollTo({top:0,behavior:'smooth'});return;
     }
     if(remove&&confirm('Delete this entry permanently?')){try{await api('/rest/v1/posts?id=eq.'+encodeURIComponent(remove.dataset.delete),{method:'DELETE'});await loadAdminPosts();}catch(error){setMessage(byId('music-message'),error.message);}}
   });
-  const preview=byId('photo-preview');byId('photo-file')?.addEventListener('change',()=>{const file=byId('photo-file').files[0];if(!file){if(!currentPhotoUrl)preview.hidden=true;return;}preview.src=URL.createObjectURL(file);preview.hidden=false;});
+  byId('photo-file')?.addEventListener('change',()=>{const file=byId('photo-file').files[0];if(!file){if(!currentMediaUrl)clearMediaPreview();return;}const objectUrl=URL.createObjectURL(file);showMediaPreview(objectUrl,file.type.startsWith('video/')||isVideoUrl(file.name));previewObjectUrl=objectUrl;});
   for(const button of document.querySelectorAll('[data-format]'))button.addEventListener('click',()=>{
     const area=byId('post-body'),start=area.selectionStart,end=area.selectionEnd,selected=area.value.slice(start,end),format=button.dataset.format;
     const wrapper=format==='bold'?['**','**']:format==='italic'?['*','*']:['> ',''];
@@ -234,13 +250,22 @@ if(login){
     if(!form.reportValidity())return;
     const values=new FormData(form),id=values.get('id');
     try{
-      showMessage(form,published?'Publishing…':'Saving draft…');let photoUrl=kind==='photo'?currentPhotoUrl:null;
+      showMessage(form,published?'Publishing…':'Saving draft…');let photoUrl=kind==='photo'?currentMediaUrl:null;
       const photo=values.get('photo');
-      if(kind==='photo'&&photo?.size){const ext=(photo.name.split('.').pop()||'jpg').replace(/[^a-z0-9]/gi,'')||'jpg',path=crypto.randomUUID()+'.'+ext;await api('/storage/v1/object/journal-photos/'+path,{method:'POST',body:photo,headers:{'Content-Type':photo.type||'application/octet-stream'}});photoUrl=base+'/storage/v1/object/public/journal-photos/'+path;}
-      if(kind==='photo'&&!photoUrl)throw new Error('Choose a photograph before saving.');
-      const row={title:values.get('title').trim(),excerpt:(values.get('excerpt')||'').trim(),category:kind==='photo'?'Photography':'Writing',body:kind==='photo'?((values.get('excerpt')||'').trim()||values.get('title').trim()):values.get('body').trim(),photo_url:photoUrl,published};
+      let mediaIsVideo=currentMediaUrl?isVideo({photo_url:currentMediaUrl}):false;
+      if(kind==='photo'&&photo?.size){
+        const ext=(photo.name.split('.').pop()||'').replace(/[^a-z0-9]/gi,'').toLowerCase();
+        const videoFile=photo.type.startsWith('video/')||isVideoUrl(photo.name);
+        const imageFile=photo.type.startsWith('image/')||/^(?:jpe?g|png|gif|webp|avif|heic|heif|bmp|tiff?)$/i.test(ext);
+        if(!videoFile&&!imageFile)throw new Error('Choose an image or a video file (MP4, WebM, or MOV).');
+        const path=crypto.randomUUID()+'.'+(ext|| (videoFile?'mp4':'jpg'));
+        await api('/storage/v1/object/journal-photos/'+path,{method:'POST',body:photo,headers:{'Content-Type':photo.type|| (videoFile?'video/mp4':'application/octet-stream')}});
+        photoUrl=base+'/storage/v1/object/public/journal-photos/'+path;mediaIsVideo=videoFile;
+      }
+      if(kind==='photo'&&!photoUrl)throw new Error('Choose a photograph or video before saving.');
+      const row={title:values.get('title').trim(),excerpt:(values.get('excerpt')||'').trim(),category:kind==='photo'?(mediaIsVideo?'Video':'Photography'):'Writing',body:kind==='photo'?((values.get('excerpt')||'').trim()||values.get('title').trim()):values.get('body').trim(),photo_url:photoUrl,published};
       await api(id?'/rest/v1/posts?id=eq.'+encodeURIComponent(id):'/rest/v1/posts',{method:id?'PATCH':'POST',body:JSON.stringify(row),headers:{'Content-Type':'application/json','Prefer':'return=minimal'}});
-      form.reset();writeForm.elements.id.value='';photoForm.elements.id.value='';currentPhotoUrl=null;preview.hidden=true;showMessage(form,published?'Published.':'Draft saved.');await loadAdminPosts();
+      form.reset();writeForm.elements.id.value='';photoForm.elements.id.value='';currentMediaUrl=null;clearMediaPreview();showMessage(form,published?'Published.':'Draft saved.');await loadAdminPosts();
     }catch(error){showMessage(form,error.message||'Could not save this entry.');}
   }
   byId('save-draft')?.addEventListener('click',()=>savePost(activeTab==='photo'?'photo':'write',false));

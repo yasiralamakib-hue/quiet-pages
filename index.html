@@ -3,24 +3,26 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="description" content="Astray — photographs and writing from a life in motion.">
+  <meta name="application-name" content="Ashtray">
+  <meta name="apple-mobile-web-app-title" content="Ashtray">
+  <meta name="description" content="Ashtray — photographs, videos, and writing from a life in motion.">
   <meta name="theme-color" content="#c97b68">
-  <title>Astray — Personal Archive</title>
+  <title>Ashtray — Personal Archive</title>
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="apple-touch-icon" href="astray-icon-192.png">
-  <link rel="stylesheet" href="styles.css?v=26">
+  <link rel="stylesheet" href="styles.css?v=27">
 </head>
 <body class="journal-page">
-  <aside class="identity-rail" aria-label="Astray journal controls">
-      <a class="rail-brand" href="index.html" aria-label="Astray home"><img class="brand-portrait" src="astray-logo.svg" alt="Astray"></a>
+  <aside class="identity-rail" aria-label="Ashtray journal controls">
+      <a class="rail-brand" href="index.html" aria-label="Ashtray home"><img class="brand-portrait" src="astray-logo.svg" alt="Ashtray"></a>
     <div class="rail-filters" aria-label="Filter entries">
       <button class="filter-card filter-all active" type="button" data-filter="all"><span class="filter-label">ALL</span><svg class="filter-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg><strong id="count-all">00</strong><img class="filter-object filter-hairband" src="hair-band-display.png" alt=""><i class="filter-indicator" aria-hidden="true"></i></button>
-      <button class="filter-card filter-photo" type="button" data-filter="photo"><span class="filter-label">PHOTO</span><svg class="filter-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h4l2-3h6l2 3h4v13H3z"/><circle cx="12" cy="13" r="4"/></svg><strong id="count-photo">00</strong><img class="filter-object filter-bow" src="ear-ring-bow-display.png" alt=""><i class="filter-indicator" aria-hidden="true"></i></button>
+      <button class="filter-card filter-photo" type="button" data-filter="photo"><span class="filter-label">MEDIA</span><svg class="filter-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h4l2-3h6l2 3h4v13H3z"/><circle cx="12" cy="13" r="4"/></svg><strong id="count-photo">00</strong><img class="filter-object filter-bow" src="ear-ring-bow-display.png" alt=""><i class="filter-indicator" aria-hidden="true"></i></button>
       <button class="filter-card filter-write" type="button" data-filter="write"><span class="filter-label">WRITE</span><svg class="filter-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 16 10-10 4 4L8 20l-5 1z"/><path d="m12 8 4 4"/></svg><strong id="count-write">00</strong><img class="filter-object filter-ring" src="ear-ring-display.png" alt=""><i class="filter-indicator" aria-hidden="true"></i></button>
     </div>
     <section class="music-player rail-player" aria-label="Music player">
       <div class="record-art" aria-hidden="true"><span></span></div>
-      <div class="player-track"><strong id="public-track-title">Select a playlist</strong><small id="public-track-subtitle">ASTRAY RADIO</small></div>
+      <div class="player-track"><strong id="public-track-title">Select a playlist</strong><small id="public-track-subtitle">ASHTRAY RADIO</small></div>
       <div class="player-progress"><span id="public-progress"></span></div>
       <div class="player-controls">
         <button id="public-prev" type="button" aria-label="Previous song">|◀</button>
@@ -40,6 +42,6 @@
     <p id="empty-state" class="empty-state" hidden></p>
   </main>
   <dialog id="post-dialog" class="entry-dialog"><button class="close" aria-label="Close entry">×</button><article id="post-detail"></article></dialog>
-  <script type="module" src="app.js?v=12"></script>
+  <script type="module" src="app.js?v=13"></script>
 </body>
 </html>
